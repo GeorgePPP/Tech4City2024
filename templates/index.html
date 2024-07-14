@@ -1,24 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>News Sentiment Analysis</title>
     <style>
         body {
-            font-family: sans-serif;
+            font-family: 'Open Sans', sans-serif;
             margin: 0;
             padding: 20px;
-            background-color: #fff;
+            background: url('https://res.cloudinary.com/cloudinary-marketing/images/w_2000,h_1100/f_auto,q_auto/v1681925138/Web_Assets/blog/cb1ca04df335d4cd75a8d49433a2a5c3612f418b-5957x3493-1_281980dcd2/cb1ca04df335d4cd75a8d49433a2a5c3612f418b-5957x3493-1_281980dcd2-jpg?_i=AA') no-repeat center center fixed;
+            background-size: cover;
+            background-color: #f0f0f0;
         }
 
-        h1, h2 {
+        h1 {
+            font-size: 2rem;
             text-align: center;
+            color: black;
+            margin-bottom: 20px;
         }
-
+        h2 {
+            font-size: 1.5rem;
+            text-align: center;
+            color: black;
+            margin-bottom: 20px;
+        }
         p.instruction {
             text-align: center;
             font-size: 16px;
             margin-top: 30px;
-            margin-bottom: -10px;
+            margin-bottom: 10px;
             color: #555;
         }
 
@@ -33,6 +45,7 @@
             border-radius: 5px;
             padding: 15px;
             background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         .sentiment-container {
@@ -75,32 +88,54 @@
         .container {
             max-width: 800px;
             margin: auto;
-        }
-
-        .box {
-            border: 1px solid #ccc;
+            background-color: rgba(255, 255, 255, 0.9);
             padding: 20px;
-            border-radius: 5px;
-            background-color: #fff;
-            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
         .form-container {
-            text-align: center; /* Center align the form content */
+            text-align: center;
+            margin-bottom: 20px;
         }
 
         .form-container form {
-            max-width: 500px; /* Limit form width for readability */
-            margin: auto; /* Center align the form within its container */
+            max-width: 500px;
+            margin: auto;
             padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .form-container input[type="text"],
+        .form-container input[type="date"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
 
         .form-container button[type="submit"] {
-            margin-top: 10px; /* Add margin before the submit button */
+            margin-top: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
         }
 
-        .analyze-button {
-            margin-top: 10px; /* Add margin before the submit button */
+        .form-container button[type="submit"]:hover {
+            background-color: #0056b3;
         }
 
         .analyze-button {
@@ -115,18 +150,35 @@
             border-style: solid;
             border-radius: 5px;
             cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+            transition: background-color 0.3s ease;
         }
 
         .analyze-button:hover {
-            background-color: #007BFF; /* Darker blue */
-            color: white;
+            background-color: #0056b3;
+        }
+
+        @media (max-width: 600px) {
+            .container, .form-container form {
+                padding: 10px;
+            }
+
+            .form-container input[type="text"],
+            .form-container input[type="date"] {
+                width: 100%;
+            }
+
+            .analyze-button {
+                width: 90%;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>News Sentiment Analysis</h1>
-        <p class="instruction">Please select the news topic and the date it occurred (roughly).</p>
+        <p class="instruction">Please enter news topic and the date it roughly occurred.</p>
 
         <div class="form-container">
             <form method="POST" action="/" onsubmit="return validateForm()">
@@ -142,7 +194,7 @@
         </div>
 
         {% if news_data and sentiment %}
-            <h2>News Articles: </h2>
+            <h2>News Articles:</h2>
             <ul id="news-list">
                 {% for article in news_data %}
                     <li>
